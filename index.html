@@ -31,6 +31,46 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			const MyComponent = Vue.extend({
+				template: `
+				<my-component
+				v-for="(item, index) in items"
+				v-bind:item="item"
+				v-bind:index="index"
+				v-bind:key="item.id"
+				></my-component>
+				`
+			})
+
+			Vue.component('my-component', MyComponent)
+
+			Vue.component('todo-item', {
+				template: `
+				<tr>
+				<td class="text-left">{{title}} </td>
+				<td class="text-right"><button class="text-left" v-on:click=$emit(\'remove\') class="btn btn-danger"></button>
+				</td>
+				</tr>
+				`,
+				props: ['title']
+			})
+
+			new Vue({
+				el: '#todo-list-example',
+				data: { newTodoText: '', todos: [], nextTodoId: 1 },
+				methods: {
+					addNewTodo: function() {
+						this.todo.push({
+							id: this.nextTodoId++,
+							title: this.newTodoText
+						})
+						this.newTodoText = ''
+					}
+				}
+			})
+
+		</script>
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		 crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

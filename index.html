@@ -24,7 +24,7 @@
 							<button class="btn btn-success btn-block mt-3">Add Task</button>
 						</form>
 						<table class="table mt-3">
-							<tr id="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id"
+							<tr is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id"
 							 v-bind:title="todo.title" v-on:remove="todos.splice(index,1)"></tr>
 						</table>
 					</div>
@@ -49,7 +49,7 @@
 				template: `
 				<tr>
 				<td class="text-left">{{title}} </td>
-				<td class="text-right"><button class="text-left" v-on:click=$emit(\'remove\') class="btn btn-danger"></button>
+				<td class="text-right"><button v-on:click="$emit('remove')"" class="btn btn-danger">Remove</button>
 				</td>
 				</tr>
 				`,
@@ -58,10 +58,14 @@
 
 			new Vue({
 				el: '#todo-list-example',
-				data: { newTodoText: '', todos: [], nextTodoId: 1 },
+				data: {
+					newTodoText: '',
+					todos: [],
+					nextTodoId: 1
+				},
 				methods: {
 					addNewTodo: function() {
-						this.todo.push({
+						this.todos.push({
 							id: this.nextTodoId++,
 							title: this.newTodoText
 						})
